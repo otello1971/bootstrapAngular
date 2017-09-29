@@ -1,0 +1,20 @@
+
+<!-- <ul class="list-group">
+  <li class="list-group-item disabled col-3"><h2>HEROES</h2></li>
+</ul> -->
+
+<div class="container">
+    <h2>HEROES</h2>
+<div class="list-group col-3">
+  <a *ngFor="let hero of heroes$ | async"
+      [routerLink]="['/hero', hero.id]" 
+      class="list-group-item list-group-item-action"
+      [class.active]="hero.id === selectedId">
+    <span class="badge badge-default badge-light">{{ hero.id }}</span> {{ hero.name }}
+  </a>
+</div>
+</div>
+
+<div class="py-2">
+  <button routerLink="/sidekicks">Go to sidekicks</button>
+</div>

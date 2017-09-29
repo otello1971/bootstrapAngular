@@ -1,16 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule }       from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { FormsModule }    from '@angular/forms';
 
-import { AppComponent } from './app.component';
+import { AppComponent }     from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeroesModule }     from './heroes/heroes.module';
+
+import { CrisisListComponent }   from './crisis/crisis-list.component';
+import { PageNotFoundComponent } from './errors/not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HeroesModule,
+    AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    CrisisListComponent,
+    PageNotFoundComponent
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
