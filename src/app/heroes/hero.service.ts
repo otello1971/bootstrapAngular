@@ -21,7 +21,7 @@ export class HeroService {
   }
 
   searchHeroes(searchPattern: string): Observable<Hero[]> {
-    return this.restangular.all('heroes').getList({name_like: '^M'});
+    return this.restangular.all('heroes').getList({name_like: searchPattern});
   }
 
 }
