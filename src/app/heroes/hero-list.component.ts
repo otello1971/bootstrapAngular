@@ -16,8 +16,6 @@ export class HeroListComponent implements OnInit {
   private selectedId: number;
   private patron: string;
 
-  searchPattern$: Observable<string>;  // for live searching
-
   constructor(
     private service: HeroService,
     private route: ActivatedRoute,
@@ -25,13 +23,13 @@ export class HeroListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.heroes$ = this.service.searchHeroes(this.appcomp.searchPattern);
+    this.heroes$ = this.service.searchHeroes(this.appcomp.searchString.value);
 
-    this.appcomp.searchPattern$
+    this.appcomp.searchString.valueChanges
       .subscribe(p => this.heroes$ = this.service.searchHeroes(p),
-      errorResponse => {
-        console.log('hero-list.component.td: Error!');
-    });
+                 errorResponse => {
+                    console.log('hero-list.component.td: Error!');
+      });
 
     // this.heroes$ = this.route.paramMap
     //   .switchMap((params: ParamMap) => {

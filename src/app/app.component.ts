@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 // import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -12,22 +14,21 @@ declare var jQuery: any; // JQuery compatibility for Bootstrap4
 
 export class AppComponent implements OnInit {
   title = 'app';
-
-  // Observable string sources
-   private inputSearchPattern = new Subject<string>();
+  searchString = new FormControl(''); // search string is empty
 
   // Observable string streams
-  searchPattern$ = this.inputSearchPattern.asObservable(); // for live searching
-  searchPattern = ''; // static
+  // searchPattern$ = this.inputSearchPattern.asObservable(); // for live searching
+  // searchPattern$: Observable<string>;
+  // searchPattern = ''; // static
 
   ngOnInit() {
-    // $('[data-toggle="popover"]').popover(); // for Bootstrap4 Popover
-    this.inputSearchPattern.next('');
+    $('[data-toggle="popover"]').popover(); // for Bootstrap4 Popover
+    this.searchString.setValue('');
   }
 
-  onKey(value: string) {
-    this.searchPattern = value;  // stores last input value
-    this.inputSearchPattern.next(value); // emmitter
-  }
+  // onKey(value: string) {
+  //   this.searchPattern = this.name.value; // stores last input value
+  //   this.inputSearchPattern.next(value); // emmitter
+  // }
 
 }
