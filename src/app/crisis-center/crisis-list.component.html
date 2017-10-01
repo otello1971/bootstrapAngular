@@ -1,0 +1,16 @@
+
+<div class="container">
+    <h2>CRISIS</h2>
+<div class="list-group col-3">
+  <a *ngFor="let crisis of listCrisis$ | async"
+      [routerLink]="['/crisis', crisis.id]" 
+      class="list-group-item list-group-item-action"
+      [class.active]="crisis.id === selectedId">
+    <span class="badge badge-default badge-light">{{ crisis.id }}</span> {{ crisis.name }}
+  </a>
+</div>
+</div>
+
+<div class="py-2">
+  <button routerLink="/sidekicks">Go to sidekicks</button>
+</div>

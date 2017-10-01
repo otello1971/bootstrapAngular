@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { HeroListComponent } from './hero-list.component';
-import { HeroDetailComponent } from './hero-detail.component';
+import { CrisisCenterComponent } from './crisis-center.component';
+import { CrisisListComponent } from './crisis-list.component';
+import { CrisisDetailComponent } from './crisis-detail.component';
+import { CrisisCenterHomeComponent } from './crisis-center-home.component';
 
-import { HeroService } from './hero.service';
 
-import { HeroRoutingModule } from './heroes-routing.module';
+import { CrisisService } from './crisis.service';
+
+import { CrisisCenterRoutingModule } from './crisis-center-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Restangular
 import { RestangularModule, Restangular } from 'ngx-restangular';
@@ -19,16 +22,18 @@ import { baseURL } from '../constants';
   imports: [
     CommonModule,
     FormsModule,
-    HeroRoutingModule,
+    CrisisCenterRoutingModule,
     BrowserAnimationsModule,
     RestangularModule.forRoot(RestangularConfigFactory)
   ],
   declarations: [
-    HeroListComponent,
-    HeroDetailComponent
+    CrisisCenterComponent,
+    CrisisListComponent,
+    CrisisDetailComponent,
+    CrisisCenterHomeComponent
   ],
   providers: [
-    HeroService,
+    CrisisService,
     {provide: 'BaseURL', useValue: baseURL} ]
 })
-export class HeroesModule {}
+export class CrisisCenterModule {}

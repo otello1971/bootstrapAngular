@@ -1,22 +1,24 @@
-import { NgModule }              from '@angular/core';
-import { RouterModule, Routes }  from '@angular/router';
- 
-import { CrisisListComponent }   from './crisis/crisis-list.component';
-//import { HeroListComponent }     from './heroes/hero-list.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ComposeMessageComponent } from './compose-message.component';
 import { PageNotFoundComponent } from './errors/not-found.component';
- 
+
 const appRoutes: Routes = [
-  { path: 'crisis-center', component: CrisisListComponent },
-  //{ path: 'heroes',        component: HeroListComponent },
   { path: '',   redirectTo: '/heroes', pathMatch: 'full' },
+  {
+    path: 'compose',
+    component: ComposeMessageComponent,
+    outlet: 'popup'
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
- 
+
 @NgModule({
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- true: debugging purposes only
     )
   ],
   exports: [

@@ -1,28 +1,27 @@
+
+import { Injectable } from '@angular/core';
+import { Hero } from './Hero';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-
-export class Hero {
-  constructor(public id: number, public name: string) { }
-}
-
-const HEROES = [
-  new Hero(11, 'Mr. Nice'),
-  new Hero(12, 'Narco'),
-  new Hero(13, 'Bombasto'),
-  new Hero(14, 'Celeritas'),
-  new Hero(15, 'Magneta'),
-  new Hero(16, 'RubberMan')
-];
 
 @Injectable()
 export class HeroService {
-  getHeroes() { return Observable.of(HEROES); }
 
-  getHero(id: number | string) {
-    return this.getHeroes()
-      // (+) before `id` turns the string into a number
-      .map(heroes => heroes.find(hero => hero.id === +id));
+  constructor(private restangular: Restangular) { }
+
+  getHeroes(): Observable<Hero[]> {
+    return this.restangular.all('heroes').getList();
   }
+
+  getHero(id: number | string): Observable<Hero> {
+    return  this.restangular.one('heroes', id).get();
+  }
+
+  searchHeroes(searchPattern: string): Observable<Hero[]> {
+    return this.restangular.all('heroes').getList({name_like: '^M'});
+  }
+
 }
