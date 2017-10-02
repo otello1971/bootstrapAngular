@@ -1,27 +1,38 @@
-
-import { Injectable } from '@angular/core';
-import { Crisis } from './Crisis';
-import { RestangularModule, Restangular } from 'ngx-restangular';
-
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+export class Crisis {
+  constructor(public id: number, public name: string) { }
+}
+
+const CRISES = [
+  new Crisis(1, 'Dragon Burning Cities'),
+  new Crisis(2, 'Sky Rains Great White Sharks'),
+  new Crisis(3, 'Giant Asteroid Heading For Earth'),
+  new Crisis(4, 'Procrastinators Meeting Delayed Again'),
+];
+
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CrisisService {
+  static nextCrisisId = 100;
+  private crises$: BehaviorSubject<Crisis[]> = new BehaviorSubject<Crisis[]>(CRISES);
 
-  constructor(private restangular: Restangular) { }
+  getCrises() { return this.crises$; }
 
-  getListCrisis(): Observable<Crisis[]> {
-    return this.restangular.all('crisis').getList();
+  getCrisis(id: number | string) {
+    return this.getCrises()
+      .map(crises => crises.find(crisis => crisis.id === +id));
   }
 
-  getCrisis(id: number | string): Observable<Crisis> {
-    return  this.restangular.one('crisis', id).get();
+  addCrisis(name: string) {
+    name = name.trim();
+    if (name) {
+      let crisis = new Crisis(CrisisService.nextCrisisId++, name);
+      CRISES.push(crisis);
+      this.crises$.next(CRISES);
+    }
   }
-
-  searchCrisis(searchPattern: string): Observable<Crisis[]> {
-    return this.restangular.all('crisis').getList({name_like: '^M'});
-  }
-
 }

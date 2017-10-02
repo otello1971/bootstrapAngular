@@ -1,20 +1,27 @@
-// TODO SOMEDAY: Feature Componetized like CrisisCenter
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { CrisisService } from './crisis.service';
-import { Crisis } from './Crisis';
+import { Crisis, CrisisService } from './crisis.service';
+import { Observable }            from 'rxjs/Observable';
 
 @Component({
-  templateUrl: './crisis-list.component.html'
+  template: `
+    <ul class="items">
+      <li *ngFor="let crisis of crises$ | async"
+        [class.selected]="crisis.id === selectedId">
+        <a [routerLink]="[crisis.id]">
+          <span class="badge">{{ crisis.id }}</span>{{ crisis.name }}
+        </a>
+      </li>
+    </ul>
+
+    <router-outlet></router-outlet>
+  `
 })
 export class CrisisListComponent implements OnInit {
-  listCrisis$: Observable<Crisis[]>;
-  private selectedId: number;
-
-  private searchPattern: string;  // live search pattern feature
+  crises$: Observable<Crisis[]>;
+  selectedId: number;
 
   constructor(
     private service: CrisisService,
@@ -22,13 +29,10 @@ export class CrisisListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-     this.listCrisis$ = this.route.paramMap
+    this.crises$ = this.route.paramMap
       .switchMap((params: ParamMap) => {
-        // (+) before `params.get()` turns the string into a number
         this.selectedId = +params.get('id');
-        return (this.searchPattern == null ?
-          this.service.getListCrisis() :
-          this.service.searchCrisis(this.searchPattern));
+        return this.service.getCrises();
       });
   }
 }

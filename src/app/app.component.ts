@@ -1,34 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
-// import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
-declare var $: any; // JQuery compatibility for Bootstrap4
-declare var jQuery: any; // JQuery compatibility for Bootstrap4
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'my-app',
+  template: `
+    <h1 class="title">Angular Router</h1>
+    <nav>
+      <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
+      <a routerLink="/superheroes" routerLinkActive="active">Heroes</a>
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
+    </nav>
+    <router-outlet></router-outlet>
+    <router-outlet name="popup"></router-outlet>
+  `
 })
-
-export class AppComponent implements OnInit {
-  title = 'app';
-  searchString = new FormControl(''); // search string is empty
-
-  // Observable string streams
-  // searchPattern$ = this.inputSearchPattern.asObservable(); // for live searching
-  // searchPattern$: Observable<string>;
-  // searchPattern = ''; // static
-
-  ngOnInit() {
-    $('[data-toggle="popover"]').popover(); // for Bootstrap4 Popover
-    this.searchString.setValue('');
-  }
-
-  // onKey(value: string) {
-  //   this.searchPattern = this.name.value; // stores last input value
-  //   this.inputSearchPattern.next(value); // emmitter
-  // }
-
+export class AppComponent {
 }
