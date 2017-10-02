@@ -6,7 +6,7 @@ import { AdminDashboardComponent } from './admin-dashboard.component';
 import { ManageCrisesComponent } from './manage-crises.component';
 import { ManageHeroesComponent } from './manage-heroes.component';
 
- import { AdminRoutingModule } from './admin-routing.module';
+import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
   imports: [

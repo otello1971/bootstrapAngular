@@ -9,31 +9,22 @@ import { ManageCrisesComponent } from './manage-crises.component';
 import { ManageHeroesComponent } from './manage-heroes.component';
 
 const adminRoutes: Routes = [
-    // {
-    //   path: 'admin',
-    //   component: AdminComponent,
-    //   children: [
-    //     {
-    //       path: '',
-    //       children: [
-    //         { path: 'crises', component: ManageCrisesComponent },
-    //         { path: 'heroes', component: ManageHeroesComponent },
-    //         { path: '', component: AdminDashboardComponent }
-    //       ]
-    //     }
-    //   ]
-    // }
-
     {
-      path: 'admin',
+      path: '',
       component: AdminComponent,
-      canActivate: [AuthGuard],
       children: [
+        {
+          path: '',
+          canActivateChild: [AuthGuard],
+          children: [
             { path: 'crises', component: ManageCrisesComponent },
             { path: 'heroes', component: ManageHeroesComponent },
             { path: '', component: AdminDashboardComponent }
+          ]
+        }
       ]
     }
+
 
   ];
 

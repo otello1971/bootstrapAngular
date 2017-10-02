@@ -21,7 +21,7 @@ export class CrisisService {
   }
 
   searchCrisis(searchPattern: string): Observable<Crisis[]> {
-    return this.restangular.all('crisis').getList({name_like: '^M'});
+    return this.restangular.all('crisis').getList({name_like: searchPattern }); // {name_like: '^M'}
   }
 
 }
