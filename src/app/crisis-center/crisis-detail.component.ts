@@ -1,17 +1,13 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { slideInDownAnimation } from '../animations';
-
-import { CrisisService } from './crisis.service';
-import { Crisis } from './Crisis';
+// import { slideInDownAnimation } from '../animations';
+import { Crisis } from './crisis';
 import { DialogService } from '../dialog.service';
 
 @Component({
   template: `
-  <h2>CRISIS LIST</h2>
   <div *ngIf="crisis">
     <h3>"{{ editName }}"</h3>
     <div>
@@ -21,47 +17,39 @@ import { DialogService } from '../dialog.service';
       <input [(ngModel)]="editName" placeholder="name"/>
     </div>
     <p>
-      <button (click)="gotoCrisis(crisis)">Back</button>
+      <button (click)="save()">Save</button>
+      <button (click)="cancel()">Cancel</button>
     </p>
   </div>
   `,
-  animations: [ slideInDownAnimation ]
+  // animations: [ slideInDownAnimation ]
 })
 export class CrisisDetailComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display')   display = 'block';
-  @HostBinding('style.position')  position = 'absolute';
+  // @HostBinding('@routeAnimation') routeAnimation = true;
+  // @HostBinding('style.display')   display = 'block';
+  // @HostBinding('style.position')  position = 'absolute';
 
   // crisis$: Observable<Crisis>;
-
   crisis: Crisis;
   editName: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: CrisisService,
-    public dialogService: DialogService
+      private route: ActivatedRoute,
+      private router: Router,
+      public dialogService: DialogService
   ) {}
 
+
   ngOnInit() {
-    this.route.data
+     this.route.data
       .subscribe((data: { crisis: Crisis }) => {
         this.editName = data.crisis.name;
         this.crisis = data.crisis;
       });
   }
 
-  gotoCrisis(crisis: Crisis) {
-    const crisisId = crisis ? crisis.id : null;
-    // Pass along the crisis id if available
-    // so that the CrisisList component can select that crisis.
-    // Include a junk 'foo' property for fun.
-    // this.router.navigate(['/crisis-center', { id: crisisId, foo: 'foo' }]);
-    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
-  }
-
   cancel() {
+    this.crisis = null;
     this.gotoCrises();
   }
 
@@ -80,8 +68,9 @@ export class CrisisDetailComponent implements OnInit {
     return this.dialogService.confirm('Discard changes?');
   }
 
+
   gotoCrises() {
-    const crisisId = this.crisis ? this.crisis.id : null;
+    let crisisId = this.crisis ? this.crisis.id : null;
     // Pass along the crisis id if available
     // so that the CrisisListComponent can select that crisis.
     // Add a totally useless `foo` parameter for kicks.
@@ -89,3 +78,4 @@ export class CrisisDetailComponent implements OnInit {
     this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
   }
 }
+

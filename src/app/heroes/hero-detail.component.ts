@@ -3,7 +3,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { slideInDownAnimation } from '../animations';
+// import { slideInDownAnimation } from '../animations';
 
 import { HeroService } from './hero.service';
 import { Hero } from './Hero';
@@ -24,12 +24,12 @@ import { Hero } from './Hero';
     </p>
   </div>
   `,
-  animations: [ slideInDownAnimation ]
+  // animations: [ slideInDownAnimation ]
 })
 export class HeroDetailComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display')   display = 'block';
-  @HostBinding('style.position')  position = 'absolute';
+  // @HostBinding('@routeAnimation') routeAnimation = true;
+  // @HostBinding('style.display')   display = 'block';
+  // @HostBinding('style.position')  position = 'absolute';
 
   hero$: Observable<Hero>;
 

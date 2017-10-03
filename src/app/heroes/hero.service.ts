@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { Hero } from './Hero';
-import { RestangularModule, Restangular } from 'ngx-restangular';
+// import { RestangularModule, Restangular } from 'ngx-restangular';
+import { Restangular } from 'ngx-restangular';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';

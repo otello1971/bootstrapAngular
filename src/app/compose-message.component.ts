@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { slideInDownAnimation } from './animations';
+// import { slideInDownAnimation } from './animations';
 
 declare var $: any; // JQuery compatibility for Bootstrap4
 declare var jQuery: any; // JQuery compatibility for Bootstrap4

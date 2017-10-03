@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { Crisis } from './Crisis';
-import { RestangularModule, Restangular } from 'ngx-restangular';
+// import { RestangularModule, Restangular } from 'ngx-restangular';
+import { Restangular } from 'ngx-restangular';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -12,7 +13,7 @@ export class CrisisService {
 
   constructor(private restangular: Restangular) { }
 
-  getListCrisis(): Observable<Crisis[]> {
+  getCrises(): Observable<Crisis[]> {
     return this.restangular.all('crisis').getList();
   }
 

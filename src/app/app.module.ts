@@ -17,9 +17,10 @@ import { LoginComponent } from './login.component';
 import { PageNotFoundComponent } from './errors/not-found.component';
 
 import { DialogService } from './dialog.service';
-// import { AdminModule } from './admin/admin.module';
-// import { CrisisCenterModule } from './crisis-center/crisis-center.module';
 
+// Restangular
+import { RestangularModule } from 'ngx-restangular';
+import { RestangularConfigFactory } from './restConfig';
 import { baseURL } from './constants';
 
 @NgModule({
@@ -27,10 +28,10 @@ import { baseURL } from './constants';
     BrowserModule,
     FormsModule,
     HeroesModule,
-    // CrisisCenterModule,
     LoginRoutingModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   declarations: [
     AppComponent,

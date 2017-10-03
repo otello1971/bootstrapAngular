@@ -1,20 +1,17 @@
-// TODO SOMEDAY: Feature Componetized like CrisisCenter
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { CrisisService } from './crisis.service';
 import { Crisis } from './Crisis';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: './crisis-list.component.html'
 })
 export class CrisisListComponent implements OnInit {
-  listCrisis$: Observable<Crisis[]>;
-  private selectedId: number;
-
-  private searchPattern: string;  // live search pattern feature
+  crises$: Observable<Crisis[]>;
+  selectedId: number;
 
   constructor(
     private service: CrisisService,
@@ -22,13 +19,10 @@ export class CrisisListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-     this.listCrisis$ = this.route.paramMap
+    this.crises$ = this.route.paramMap
       .switchMap((params: ParamMap) => {
-        // (+) before `params.get()` turns the string into a number
         this.selectedId = +params.get('id');
-        return (this.searchPattern == null ?
-          this.service.getListCrisis() :
-          this.service.searchCrisis(this.searchPattern));
+        return this.service.getCrises();
       });
   }
 }

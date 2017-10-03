@@ -6,7 +6,8 @@ import { PageNotFoundComponent } from './errors/not-found.component';
 
 import { CanDeactivateGuard } from './can-deactivate-guard.service';
 import { AuthGuard } from './auth-guard.service';
-// import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
+import { PreloadAllModules } from '@angular/router';
+import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
 
 
 const appRoutes: Routes = [
@@ -35,8 +36,7 @@ const appRoutes: Routes = [
       appRoutes,
       {
         enableTracing: false, // <-- debugging purposes only
-        // preloadingStrategy: SelectivePreloadingStrategy,
-
+        preloadingStrategy: SelectivePreloadingStrategy, // Otra opción: PreloadAllModules
       }
     )
   ],
@@ -44,8 +44,8 @@ const appRoutes: Routes = [
     RouterModule
   ],
   providers: [
-    CanDeactivateGuard // ,
-    // SelectivePreloadingStrategy
+    CanDeactivateGuard,
+    SelectivePreloadingStrategy
   ]
 })
 export class AppRoutingModule { }
