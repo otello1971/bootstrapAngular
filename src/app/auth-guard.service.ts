@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     // regla de tslint para configurar exigencia de constantes : prefer-const
+
     let url: string = state.url;
 
     return this.checkLogin(url);

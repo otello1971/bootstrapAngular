@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 // import { slideInDownAnimation } from '../animations';
@@ -8,7 +8,12 @@ import { DialogService } from '../dialog.service';
 
 @Component({
   template: `
-  <div *ngIf="crisis">
+  <div [hidden]="!espere" class="card">
+    <div class="card-body">
+        espere ...
+    </div>
+  </div>
+  <div *ngIf="crisis && !espere">
     <h3>"{{ editName }}"</h3>
     <div>
       <label>Id: </label>{{ crisis.id }}</div>
@@ -32,6 +37,7 @@ export class CrisisDetailComponent implements OnInit {
   // crisis$: Observable<Crisis>;
   crisis: Crisis;
   editName: string;
+  espere = false;
 
   constructor(
       private route: ActivatedRoute,
@@ -46,6 +52,12 @@ export class CrisisDetailComponent implements OnInit {
         this.editName = data.crisis.name;
         this.crisis = data.crisis;
       });
+      // Esperar mientras se carga...
+      this.router.events.subscribe((e: Event) => {
+        if (e instanceof NavigationStart) {
+          this.espere =  true; } else
+        if (e instanceof NavigationEnd) {
+          this.espere = false; }});
   }
 
   cancel() {

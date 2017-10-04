@@ -1,10 +1,13 @@
-<div class="container-fluid text-dark">
-  <div class="row pl-2 pt-2">
-    <div class="col">
-      <h1>Angular Router</h1>
-    </div>
+<div class="container-fluid">
+  <div class="row pl-2 pt-2 bg-dark text-white">
+      <div class="col-8"><h1>Angular Router</h1></div>
+      <div class="col-4">                
+        <form class="form-inline my-2 my-lg-0">
+          <input [formControl]="searchString" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form></div>
   </div>
-  <div class="row p-2">
+  <div class="row px-2 pt-2">
     <div class="col">
       <!-- <nav class="nav nav-pills justify-content-start p-2"> -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,16 +22,6 @@
               <li class="nav-item">
                   <a routerLink="/admin" routerLinkActive="active" class="nav-link">Admin</a>
               </li>   
-                   
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                   aria-haspopup="true" aria-expanded="false">Admin2</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="./admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-                    <a class="dropdown-item" routerLink="./admin/crises" routerLinkActive="active">Manage Crises</a>
-                    <a class="dropdown-item" routerLink="./admin/heroes" routerLinkActive="active">Manage Heroes</a>
-                </div>
-              </li>
 
               <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
@@ -38,16 +31,13 @@
               </li>              
             </ul>
             <div class="nav-item ml-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input [formControl]="searchString" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                <a routerLink="/login" routerLinkActive="active" class="nav-link">login</a>
             </div>            
           </div>
         </nav>
     </div>
   </div>
-  <div class="row p-2">
+  <div class="row px-2 pt-0">
     <div class="col">
       <router-outlet></router-outlet>
       <router-outlet name="popup"></router-outlet>

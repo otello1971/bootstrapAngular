@@ -32,7 +32,8 @@ export class LoginComponent {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
         // tslint:disable-next-line:prefer-const
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/login';
+        this.authService.redirectUrl = null;  // limpia la url de llegada
 
         // Set our navigation extras object
         // that passes on our global query params and fragment
