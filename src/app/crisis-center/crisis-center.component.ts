@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   template:  `
     <div class="row py-2">
       <div class="col" align="center">
-        <h2>Muscles</h2>
+        <h2>Crisis Center</h2>
       </div>
     </div>
     <router-outlet></router-outlet>

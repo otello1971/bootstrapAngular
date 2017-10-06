@@ -2,43 +2,27 @@
   "heroes": [
     {
       "id" :11,
-      "name":"Biceps"
+      "name":"Mr. Nice"
     },
     {
       "id" :12,
-      "name":"Triceps"
+      "name":"Narco"
     },
     {
       "id" :13,
-      "name":"Forearms"
+      "name":"Bombasto"
     },
     {
       "id" :14,
-      "name":"Shoulders"
+      "name":"Celeritas"
     },
     {
       "id" :15,
-      "name":"Pecs"
+      "name":"Magneta"
     },
     {
       "id" :16,
-      "name":"Abs"
-    },
-    {
-      "id" :17,
-      "name":"Quadriceps"
-    },
-    {
-      "id" :17,
-      "name":"Hammerstrings"
-    },
-    {
-      "id" :17,
-      "name":"Calves"
-    },
-    {
-      "id" :17,
-      "name":"Other"
+      "name":"Rubber Man"
     }
   ],
   "crisis": [
