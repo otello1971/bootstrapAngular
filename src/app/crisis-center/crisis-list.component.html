@@ -5,7 +5,7 @@
             <li *ngFor="let crisis of crises$ | async; let i=index" class="nav-item">
                 <a class="nav-link" [routerLink]="['/crisis-center', crisis.id]" 
                 data-toggle="pill" role="tab">
-                    <span class="badge badge-default badge-light">{{ crisis.id }}</span>{{ crisis.name }}
+                    <span class="badge badge-default badge-light mr-2">{{ crisis.id }}</span>{{ crisis.name }}
                 </a>
             </li>
         </ul>

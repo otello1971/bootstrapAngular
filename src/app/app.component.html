@@ -1,8 +1,8 @@
-<div class="container-fluid px-0 px-sm-2">
+<div class="container-fluid">
 
-  <div class="row">
+  <div class="row px-0 px-sm-2">
     <div class="col">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <p class="navbar-brand text-light m-1">Angular Router</p>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -28,8 +28,7 @@
             </div>
         </nav>
       </div>
-    <!-- /div>
-    <div class="row px-2 pt-0" -->
+
       <div class="col col-12">        
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
               <ul class="navbar-nav col-12 col-sm-12">
@@ -43,12 +42,10 @@
         </nav>
       </div>
   </div>
-  <div class="row pt-0">
-    <div class="col">
-      <router-outlet></router-outlet>
-      <router-outlet name="popup"></router-outlet>
-    </div>
-  </div>
+
+  <router-outlet></router-outlet>
+  <router-outlet name="popup"></router-outlet>
+
 </div>
 
 
