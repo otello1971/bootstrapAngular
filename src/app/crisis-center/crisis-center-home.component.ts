@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
-import { Router, NavigationStart
-                //  , NavigationEnd
-                 , Event } from '@angular/router';
+import { Router, NavigationStart, Event } from '@angular/router';
 
 @Component({
   template: `
-<div [hidden]="!espere" class="card">
-  <div class="card-body">
-      espere ...
-  </div>
-</div>
-  <div *ngIf="!espere" class="card">
-    <div class="card-body text-center">
-      Welcome to the Crisis Center
+  <div class="row w-100 p-2">
+
+    <div class="col" [hidden]="!espere">
+      <div class="card">
+        <div class="card-body">
+            espere ...
+        </div>
+      </div>
     </div>
+
+    <ng-container *ngIf="!espere">
+      <div class="col">
+        <div class="card">
+          <div class="card-body text-center">
+            Welcome to the Crisis Center
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
   </div>
   `
 })
@@ -24,9 +33,7 @@ export class CrisisCenterHomeComponent {
       // Esperar mientras se carga...
       this.router.events.subscribe((e: Event) => {
         if (e instanceof NavigationStart) {
-          this.espere =  true; } // else
-        // if (e instanceof NavigationEnd) {
-        //   this.espere = false; }
+          this.espere =  true; }
       });
     }
  }

@@ -23,17 +23,13 @@ export class HeroListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Para la primera vez, se carga una lista 'estática' de héroes desde app.component
     this.heroes$ = this.service.searchHeroes(this.appcomp.searchString.value);
 
+    // Suscribirse a cambios en la url de llamada, del router, solo para desplegar héroe seleccionado
     this.route.paramMap.subscribe((params: ParamMap) => this.selectedId = +params.get('id'));
 
-    // this.heroes$ = this.route.paramMap
-    // .switchMap((params: ParamMap) => {
-    //   // (+) before `params.get()` turns the string into a number
-    //   this.selectedId = +params.get('id');
-    //   return (this.service.getHeroes());
-    // });
-
+    // Suscribirse a cambios en el filtro de heroes desde el 'search' de app.component
     this.appcomp.searchString.valueChanges
       .subscribe(p => this.heroes$ = this.service.searchHeroes(p),
                  errorResponse => {

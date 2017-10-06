@@ -5,18 +5,29 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 
-@Injectable()
-export class AuthService {
-  isLoggedIn = false;
+// Firebase
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
+@Injectable()
+
+export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
+  authUser: firebase.User;
 
-  login(): Observable<boolean> {
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+  constructor(public afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe(
+      (user: firebase.User|null) => this.authUser = user,
+      (error: any) => this.redirectUrl = '/login'
+    );
   }
 
-  logout(): void {
-    this.isLoggedIn = false;
+  login(): Promise <firebase.auth.UserCredential> {
+    return (this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
   }
 }

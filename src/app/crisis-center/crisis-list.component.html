@@ -1,24 +1,26 @@
-<div class="container">
-    <h2>CRISIS</h2>
-    <div class="row">
-        <div class="column list-group col-4">
-            <div *ngFor="let crisis of crises$ | async; let i=index" class="item">
-                <p [class.active]="crisis.id === selectedId" [routerLink]="['/crisis-center', crisis.id]" 
-                    class="list-group-item list-group-item-action">
-                        <span class="badge badge-default badge-light">{{ crisis.id }}</span>{{ crisis.name }}
-                </p>
-            </div>
+<div class="row">
+    <div class="col col-12 col-sm-4">
+        <!-- Nav tabs -->
+        <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+            <li *ngFor="let crisis of crises$ | async; let i=index" class="nav-item">
+                <a class="nav-link" [routerLink]="['/crisis-center', crisis.id]" 
+                data-toggle="pill" role="tab">
+                    <span class="badge badge-default badge-light">{{ crisis.id }}</span>{{ crisis.name }}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel"><router-outlet></router-outlet></div>
         </div>
-        <div class="column col-8">
-            <div class="card">
-                <div class="card-body">
-                    <router-outlet></router-outlet>
-                </div>
-            </div>       
-        </div>
-    <div class="row">
+    </div>
+</div>    
+<div class="row">    
+    <div class="col">
         <div class="column py-3">
             <button routerLink="/sidekicks">Go to sidekicks</button>
-          </div>
+        </div>
     </div>
 </div>

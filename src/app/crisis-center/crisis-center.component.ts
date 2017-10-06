@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
   template:  `
-    <h2>CRISIS CENTER</h2>
+    <div class="row py-2">
+      <div class="col" align="center">
+        <h2>Muscles</h2>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   `
 })

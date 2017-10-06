@@ -23,9 +23,16 @@ import { RestangularModule } from 'ngx-restangular';
 import { RestangularConfigFactory } from './restConfig';
 import { baseURL } from './constants';
 
+// FireBase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+
 @NgModule({
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     FormsModule,
     HeroesModule,
     LoginRoutingModule,

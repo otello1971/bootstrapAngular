@@ -9,10 +9,6 @@ import { HeroService } from './hero.service';
 
 import { HeroRoutingModule } from './heroes-routing.module';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// Restangular
-// import { RestangularModule, Restangular } from 'ngx-restangular';
-// import { RestangularConfigFactory } from '../restConfig';
-// import { baseURL } from '../constants';
 
 @NgModule({
   imports: [
@@ -20,7 +16,6 @@ import { HeroRoutingModule } from './heroes-routing.module';
     FormsModule,
     HeroRoutingModule
     // , BrowserAnimationsModule
-    // , RestangularModule.forRoot(RestangularConfigFactory)
   ],
   declarations: [
     HeroListComponent,
@@ -28,8 +23,6 @@ import { HeroRoutingModule } from './heroes-routing.module';
   ],
   providers: [
     HeroService
-    // ,
-    // {provide: 'BaseURL', useValue: baseURL}
   ]
 })
 export class HeroesModule {}

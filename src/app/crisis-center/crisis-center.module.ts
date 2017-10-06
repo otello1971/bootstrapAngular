@@ -13,18 +13,12 @@ import { CrisisCenterRoutingModule } from './crisis-center-routing.module';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Restangular
-// import { RestangularModule, Restangular } from 'ngx-restangular';
-// import { RestangularConfigFactory } from '../restConfig';
-// import { baseURL } from '../constants';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     CrisisCenterRoutingModule,
     // BrowserAnimationsModule,
-    // RestangularModule.forRoot(RestangularConfigFactory)
   ],
   declarations: [
     CrisisCenterComponent,
@@ -34,8 +28,6 @@ import { CrisisCenterRoutingModule } from './crisis-center-routing.module';
   ],
   providers: [
     CrisisService
-    // ,
-    // {provide: 'BaseURL', useValue: baseURL}
   ]
 })
 export class CrisisCenterModule {}

@@ -7,26 +7,7 @@ import { Crisis } from './crisis';
 import { DialogService } from '../dialog.service';
 
 @Component({
-  template: `
-  <div [hidden]="!espere" class="card">
-    <div class="card-body">
-        espere ...
-    </div>
-  </div>
-  <div *ngIf="crisis && !espere">
-    <h3>"{{ editName }}"</h3>
-    <div>
-      <label>Id: </label>{{ crisis.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="editName" placeholder="name"/>
-    </div>
-    <p>
-      <button (click)="save()">Save</button>
-      <button (click)="cancel()">Cancel</button>
-    </p>
-  </div>
-  `,
+  templateUrl: './crisis-detail.component.html'
   // animations: [ slideInDownAnimation ]
 })
 export class CrisisDetailComponent implements OnInit {

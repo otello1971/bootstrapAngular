@@ -1,0 +1,23 @@
+<div class="row py-2">
+    <div class="col">  
+        <!-- Espere ... -->
+        <div [hidden]="!espere" class="card">
+            <div class="card-body">
+                espere ...
+            </div>
+        </div>
+        <!-- Datos -->
+        <div *ngIf="crisis && !espere" class="card">
+            <div class="card-header">
+                Crisis
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">"{{ editName }}"</h4>
+                <p class="card-text">Id: {{ crisis.id }}</p>
+                <p class="card-text"><label>Name:</label><input [(ngModel)]="editName" placeholder="name"/></p>
+                <button class="btn btn-primary" (click)="save()">Save</button>
+                <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

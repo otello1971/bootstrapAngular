@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationStart, Event } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
 // import { Observable } from 'rxjs/Observable';
@@ -12,8 +13,20 @@ declare var jQuery: any; // JQuery compatibility for Bootstrap4
   templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   searchString = new FormControl(''); // search string is empty
+
+  constructor(
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+        // Esperar mientras se carga...
+        this.router.events.subscribe((e: Event) => {
+          if (e instanceof NavigationStart) {
+            $('#navbarSupportedContent').collapse('hide');
+          }});
+  }
 
   // Observable string streams
   // searchPattern$ = this.inputSearchPattern.asObservable(); // for live searching

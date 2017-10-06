@@ -8,16 +8,16 @@ import 'rxjs/add/operator/map';
 
 @Component({
   template:  `
-    <p>Dashboard</p>
+      <p>Dashboard</p>
 
-    <p>Session ID: {{ sessionId | async }}</p>
-    <a id="anchor"></a>
-    <p>Token: {{ token | async }}</p>
+      <p>Session ID: {{ sessionId | async }}</p>
+      <a id="anchor"></a>
+      <p>Token: {{ token | async }}</p>
 
-    Preloaded Modules
-    <ul>
-      <li *ngFor="let module of modules">{{ module }}</li>
-    </ul>
+      Preloaded Modules
+      <ul>
+        <li *ngFor="let module of modules">{{ module }}</li>
+      </ul>
   `
 })
 export class AdminDashboardComponent implements OnInit {
