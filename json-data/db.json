@@ -1,4 +1,188 @@
 {
+  "workout": [
+    {
+      "seq" :1,
+      "date": "2017-09-30T17:57:28.556094Z",
+      "exercises": [
+        {
+          "seq": 1,
+          "title": "bench press - straigth bar",
+          "performances":[{
+                "seq": 1,
+                "weight": 50,
+                "reps" : 12
+              },
+              {
+                "seq": 2,
+                "weight": 45,
+                "reps" : 12            
+              }]
+        },
+        {
+          "seq": 2,
+          "title": "Incline dumbbell press",
+          "performances":[{
+                "seq": 3,
+                "weight": 65,
+                "reps" : 12
+              },
+              {
+                "seq": 4,
+                "weight": 30,
+                "reps" : 12            
+              },
+              {
+                "seq": 5,
+                "weight": 12.5,
+                "reps" : 12            
+              },
+              {
+                "seq": 105,
+                "weight": 12.5,
+                "reps" : 9            
+              }]
+        },
+        {
+          "seq": 3,
+          "title": "Dumbbell fly",
+          "performances":[{
+                "seq": 6,
+                "weight": 15,
+                "reps" : 12
+              },
+              {
+                "seq": 7,
+                "weight": 15,
+                "reps" : 12            
+              }]
+        },
+        {
+          "seq": 4,
+          "title": "Dumbbell pull-over",
+          "performances":[{
+                "seq": 8,
+                "weight": 10,
+                "reps" : 12
+              },
+              {
+                "seq": 9,
+                "weight": 12.5,
+                "reps" : 12            
+              },
+              {
+                "seq": 10,
+                "weight": 12.5,
+                "reps" : 10            
+              }]
+        },
+        {
+          "seq": 5,
+          "title": "Decline press",
+          "performances":[{
+                "seq": 11,
+                "weight": 5,
+                "reps" : 12
+              },
+              {
+                "seq": 12,
+                "weight": 5,
+                "reps" : 12            
+              }]
+        }
+      ]
+    },
+    {
+      "seq" :2,
+      "date": "2017-09-26T18:45:16.745Z",
+      "exercises": [
+        {
+          "seq": 1,
+          "title": "bench press - straigth bar",
+          "performances":[{
+                "seq": 1,
+                "weight": 50,
+                "reps" : 12
+              },
+              {
+                "seq": 2,
+                "weight": 45,
+                "reps" : 12            
+              }]
+        },
+        {
+          "seq": 2,
+          "title": "Incline dumbbell press",
+          "performances":[{
+                "seq": 3,
+                "weight": 65,
+                "reps" : 12
+              },
+              {
+                "seq": 4,
+                "weight": 30,
+                "reps" : 12            
+              },
+              {
+                "seq": 5,
+                "weight": 12.5,
+                "reps" : 12            
+              },
+              {
+                "seq": 105,
+                "weight": 12.5,
+                "reps" : 9            
+              }]
+        },
+        {
+          "seq": 3,
+          "title": "Dumbbell fly",
+          "performances":[{
+                "seq": 6,
+                "weight": 15,
+                "reps" : 12
+              },
+              {
+                "seq": 7,
+                "weight": 15,
+                "reps" : 12            
+              }]
+        },
+        {
+          "seq": 4,
+          "title": "Dumbbell pull-over",
+          "performances":[{
+                "seq": 8,
+                "weight": 10,
+                "reps" : 12
+              },
+              {
+                "seq": 9,
+                "weight": 12.5,
+                "reps" : 12            
+              },
+              {
+                "seq": 10,
+                "weight": 12.5,
+                "reps" : 10            
+              }]
+        },
+        {
+          "seq": 5,
+          "title": "Decline press",
+          "performances":[{
+                "seq": 11,
+                "weight": 5,
+                "reps" : 12
+              },
+              {
+                "seq": 12,
+                "weight": 5,
+                "reps" : 12            
+              }]
+        }
+      ]    
+    }
+  ],
   "heroes": [
     {
       "id" :11,
