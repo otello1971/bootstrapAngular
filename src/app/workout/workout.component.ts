@@ -28,7 +28,7 @@ export class WorkoutComponent implements OnInit {
     // Para la primera vez, se carga una lista 'estática' de workouts
     // this.workouts$ = this.service.searchWorkouts(this.appcomp.searchString.value);
 
-    this.latestWorkout$ = this.service.getLatestWorkout();
+    this.workouts$ = this.service.getLatestWorkout2();
 
     // this.latestWorkout$.subscribe((w: Workout[]) => console.log('Workout:' + JSON.stringify(w[0])));
 

@@ -47,6 +47,91 @@ export class WorkoutService {
       });
   }
 
+
+  // getLatestWorkout2(): Observable<Workout[]> {
+  //   // let workoutsCollection: AngularFirestoreCollection<Workout>;
+  //   let workoutCollection: AngularFirestoreCollection<Workout>;
+  //   let exerciseCollection: AngularFirestoreCollection<Exercise>;
+  //   let performanceCollection: AngularFirestoreCollection<Performance>;
+
+  //   let workouts$: Observable<Workout[]>;
+  //   let exercises$: Observable<Exercise[]>;
+  //   let performances$: Observable<Performance[]>;
+
+  //   workoutCollection = this.db.doc('GymJournal/Ivk44JnIqU5DijOXN5Kg').collection<Workout>('workouts');
+  //   workouts$ = workoutCollection.valueChanges()
+  //   .map( wks => {
+  //      wks.map(
+  //     (wko: Workout) => {
+  //       exerciseCollection = workoutCollection.doc(wko.id).collection<Exercise>('exercises');
+  //       exercises$ = exerciseCollection.valueChanges().map( exs => {
+  //         wko.exercises = exs.map(
+  //         (exo: Exercise) => {
+  //           performanceCollection = exerciseCollection.doc(exo.id).collection<Performance>('performances');
+  //           performances$ = performanceCollection.valueChanges().map( pfs => {
+  //              exo.performances = pfs.map(
+  //             (pfo: Performance) => {
+  //               return pfo;
+  //             });
+  //             return pfs;
+  //           });
+  //           return exo;
+  //         });
+  //         return exs;
+  //       });
+  //       return wko;
+  //     });
+  //   return wks;
+  // });
+
+
+  //   return workouts$;
+  // }
+
+  getLatestWorkout2(): Observable<Workout[]> {
+    // let workoutsCollection: AngularFirestoreCollection<Workout>;
+    let workoutCollection: AngularFirestoreCollection<Workout>;
+    let exerciseCollection: AngularFirestoreCollection<Exercise>;
+    let performanceCollection: AngularFirestoreCollection<Performance>;
+
+    let workouts$: Observable<Workout[]>;
+    let exercises$: Observable<Exercise[]>;
+    let performances$: Observable<Performance[]>;
+
+    workoutCollection = this.db.doc('GymJournal/Ivk44JnIqU5DijOXN5Kg').collection<Workout>('workouts');
+    workouts$ = workoutCollection.valueChanges()
+    .map( wks =>
+       wks.map(
+       (wko: Workout) => {
+        exerciseCollection = workoutCollection.doc(wko.id).collection<Exercise>('exercises');
+        exercises$ = exerciseCollection.valueChanges()
+        .map( exs => {
+          wko.exercises = exs
+          .map(
+           (exo: Exercise) => {
+            performanceCollection = exerciseCollection.doc(exo.id).collection<Performance>('performances');
+            performances$ = performanceCollection.valueChanges()
+            .map( pfs => {
+               exo.performances = pfs
+               .map(
+                (pfo: Performance) => {
+                 return pfo;
+              });
+              return pfs;
+            });
+            return exo;
+          });
+          return exs;
+        });
+        return wko;
+      })
+  );
+
+
+    return workouts$;
+  }
+
+
   getLatestWorkout(): Observable<any> {
     // let workoutsCollection: AngularFirestoreCollection<Workout>;
     let workoutDoc: AngularFirestoreDocument<Workout>;
@@ -58,62 +143,132 @@ export class WorkoutService {
 
     let workout$: Observable<Workout>;
     let exercise$: Observable<Exercise>;
-    let exercises$: Observable<Exercise[]>;
+    let exercises$: Observable<any[]>;
     let performances$: Observable<Performance[]>;
 
-    // let compound$: Observable<any>;
-
     workoutDoc = this.db.doc<Workout>('GymJournal/Ivk44JnIqU5DijOXN5Kg/workouts/ZU4CKsObsdaxjMH781OB');
+    exerciseCollection = workoutDoc.collection<Exercise>('exercises');
+
     workout$ = workoutDoc             // .valueChanges();
     .snapshotChanges().map(a => {
         const data = a.payload.data() as Workout;
         const id = a.payload.id;
-        return { id: id, ...data };
+        return { id: id, ...data};
       });
-    // workout$.subscribe(x => console.log('Workout:' + JSON.stringify(x)));
 
-    exerciseCollection = workoutDoc.collection<Exercise>('exercises');
-    exercises$ = exerciseCollection   // .valueChanges();
-      .snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Exercise;
-        const id1 = a.payload.doc.id;
-        return { id: id1, ...data };
-      });
-    });
-
-    exercises$.map((e: Exercise[]) => {
-      // tslint:disable-next-line:forin
-
-        e.map((ee: Exercise) => {
-          exerciseDoc = exerciseCollection.doc(ee.id);
-          exercise$ = exerciseDoc
-          .snapshotChanges().map(a => {
-            const data = a.payload.data() as Exercise;
-            const id = a.payload.id;
-            return { id: id, ...data };
-            });
-
-          performanceCollection = exerciseDoc.collection<Performance>('performances');
-          performances$ = performanceCollection
-          .snapshotChanges().map(actions2 => {
-            return actions2.map(a2 => {
-              const data2 = a2.payload.doc.data() as Performance;
-              const id2 = a2.payload.doc.id;
-              return { id: id2, ...data2 };
-            });
+     exercises$ = exerciseCollection.snapshotChanges().map(
+        actionExercises => {
+          return actionExercises.map(actionExercise => {
+            const id1 = actionExercise.payload.doc.id;
+            const data1 = actionExercise.payload.doc.data() as Exercise;
+            return { id: id1, ...data1 };
           });
+        });
 
-          return Observable.combineLatest(exercise$, performances$)
-          .map( data => {
-            let exercise1: Exercise = data[0];
-            let performances1: Performance[] = data[1];
-            return { exercise1, performances: performances1 };
-          });
-      });
-    });
+    // exerciseCollection.snapshotChanges().do(
+    //     actionExercises => {
+    //       actionExercises.forEach(actionExercise => {
+    //         const id1 = actionExercise.payload.doc.id;
+    //         let doc_e = exerciseCollection.doc(id1);
+    //         let data;
+
+    //         doc_e
+    //         .snapshotChanges()
+    //                 .mergeMap(exerciseAction => {
+    //                   const exerciseId = exerciseAction.payload.id;
+    //                   const exerciseData = exerciseAction.payload.data() as Exercise;
+
+    //                   performanceCollection = exerciseCollection.doc(exerciseId).collection<Performance>('/performances');
+    //                   return performanceCollection
+    //                       .snapshotChanges()
+    //                         .map( actions2 => {
+    //                           let performances1: Performance[] = actions2
+    //                             .map(per => {
+    //                               const id2 = per.payload.doc.id;
+    //                               const data2 = per.payload.doc.data() as Performance;
+    //                               return { id: id2, ...data2 };
+    //                             });
+    //                           data = { id: exerciseId, ...exerciseData, performances: performances1};
+    //                           return data;
+    //                       });
+    //           });
+    //           doc_e.update(data);
+    //       });
+    // });
+
+
+
+    //         exercise$ = exerciseCollection.doc(lista[0])
+    //         .snapshotChanges()
+    //                 .mergeMap(exerciseAction => {
+    //                   const exerciseId = exerciseAction.payload.id;
+    //                   const exerciseData = exerciseAction.payload.data() as Exercise;
+  
+    //                   performanceCollection = exerciseCollection.doc(exerciseId).collection<Performance>('/performances');
+  
+    //                   return performanceCollection
+    //                       .snapshotChanges()
+    //                         .map( actions2 => {
+    //                           let performances1: Performance[] = actions2
+    //                             .map(per => {
+    //                               const id2 = per.payload.doc.id;
+    //                               const data2 = per.payload.doc.data() as Performance;
+    //                               return { id: id2, ...data2 };
+    //                             });
+    //                           return { id: exerciseId, ...exerciseData, performances: performances1};
+    //                       });
+    //           });
+
+    //     });
+
+    // exercise$ = exerciseCollection.doc('K5jDFiN5k099MYmuiV00')
+    // .snapshotChanges()
+    //         .mergeMap(exerciseAction => {
+    //           const exerciseId = exerciseAction.payload.id;
+    //           const exerciseData = exerciseAction.payload.data() as Exercise;
+
+    //           performanceCollection = exerciseCollection.doc(exerciseId).collection<Performance>('/performances');
+
+    //           return performanceCollection
+    //               .snapshotChanges()
+    //                 .map( actions2 => {
+    //                   let performances1: Performance[] = actions2
+    //                     .map(per => {
+    //                       const id2 = per.payload.doc.id;
+    //                       const data2 = per.payload.doc.data() as Performance;
+    //                       return { id: id2, ...data2 };
+    //                     });
+    //                   return { id: exerciseId, ...exerciseData, performances: performances1};
+    //               });
+    //   });
+
+
+
+
+    // exercise$ = exerciseCollection.doc('K5jDFiN5k099MYmuiV00')
+    // .snapshotChanges()
+    //         .mergeMap(exerciseAction => {
+    //           const exerciseId = exerciseAction.payload.id;
+    //           const exerciseData = exerciseAction.payload.data() as Exercise;
+
+    //           performanceCollection = exerciseCollection.doc(exerciseId).collection<Performance>('/performances');
+
+    //           return performanceCollection
+    //               .snapshotChanges()
+    //                 .map( actions2 => {
+    //                   let performances1: Performance[] = actions2
+    //                     .map(per => {
+    //                       const id2 = per.payload.doc.id;
+    //                       const data2 = per.payload.doc.data() as Performance;
+    //                       return { id: id2, ...data2 };
+    //                     });
+    //                   return { id: exerciseId, ...exerciseData, performances: performances1};
+    //               });
+    //   });
+
 
     exercises$.subscribe(x => console.log('Exercises:' + JSON.stringify(x)));
+    // exercises$.subscribe(x => console.log('Exercises:' + JSON.stringify(x)));
 
     return Observable.combineLatest(workout$, exercises$)
       .map( data => {
