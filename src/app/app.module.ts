@@ -19,7 +19,6 @@ import { ComposeMessageComponent } from './compose-message.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { PageNotFoundComponent } from './errors/not-found.component';
-
 import { DialogService } from './dialog.service';
 
 // Restangular
@@ -32,6 +31,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
+
+
 
 @NgModule({
   imports: [
@@ -52,7 +53,7 @@ import { environment } from '../environments/environment';
     ComposeMessageComponent,
     LoginComponent,
     PageNotFoundComponent
-  ],
+    ],
   providers: [
     DialogService,
     {provide: 'BaseURL', useValue: baseURL}

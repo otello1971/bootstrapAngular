@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WorkoutComponent } from './workout.component';
+import { GymJournalComponent } from '../gym-journal/gym-journal.component';
 
 const workoutRoutes: Routes = [
-  { path: 'workout',  component: WorkoutComponent },
+  { path: 'workout',  component: GymJournalComponent },
 ];
 
 @NgModule({

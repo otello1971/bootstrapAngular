@@ -12,28 +12,7 @@
           [routerLink]="['/workout', workout.seq]" 
           class="list-group-item list-group-item-action">
           {{ workout.date | date }}
-              <!-- Excercises -->
-              <a *ngFor="let exercise of workout.exercises"
-                [routerLink]="['/exercise', exercise.seq]" 
-                class="list-group-item list-group-item-action">
-                <span class="badge badge-default badge-light mr-2">{{ exercise.seq }}</span>{{ exercise.title }}
-                      <!-- Inicio Performances -->
-                      <div class="d-flex flex-row flex-wrap">
-                        <div *ngFor="let performance of exercise.performances; let i=index;" class="m-0 p-0">
-                            <a [routerLink]="['/performance', performance.seq]" 
-                            class="list-group-item list-group-item-action">
-                            {{ performance.weight }} lb x {{ performance.reps }}
-                            </a>
-                        </div>
-                        <div>
-                            <a [routerLink]="['/addperformance', exercise.seq]" 
-                            class="list-group-item list-group-item-action">+
-                            </a>                    
-                        </div>
-                      </div>
-                      <!-- Fin Performances -->
-              </a>
-              <!-- Fin Excercises -->
+            <app-exercise [gymJournalId]="gymJournalId" [workoutId]="workout.id"></app-exercise>
         </a>
         <!-- Fin Workouts -->  
       </div>

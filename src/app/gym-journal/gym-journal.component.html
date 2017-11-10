@@ -1,0 +1,3 @@
+<ng-container  *ngIf="gymJournal$ | async as gymJournal">
+    <app-workout [gymJournalId]="gymJournal.id"></app-workout>
+</ng-container>
