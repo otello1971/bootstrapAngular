@@ -15,8 +15,7 @@ import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/find';
 import { Subject } from 'rxjs/Subject';
 
-import {PerformanceLessId, Performance, ExerciseLessId,
-        Exercise, WorkoutLessId, Workout, GymJournal } from '../../environments/interfaces';
+import {Performance, Exercise, Workout, GymJournal } from '../../environments/interfaces';
 
 @Injectable()
 export class WorkoutService {
@@ -24,23 +23,28 @@ export class WorkoutService {
   constructor(private restangular: Restangular,
               private db: AngularFirestore) { }
 
-  getWorkouts(): Observable<Workout[]> {
-    return this.restangular.all('workout').getList();
-  }
-
-  getWorkout(id: number | string): Observable<Workout> {
-    return  this.restangular.one('workout', id).get();
-  }
-
-  getLastWorkout(): Observable<Workout[]> {
-    return this.restangular.all('workout').getList(
-      {
-        _sort: 'date',
-        _order: 'desc',
-        _start: 0,
-        _end: 1
-      });
-  }
+  // /////////////////////////////////////////////////////////////////////////
+  //  !!!! OJO !!!! Restangular DB --- Importante codificación --- No Borrar!
+  // /////////////////////////////////////////////////////////////////////////
+  // getWorkouts(): Observable<Workout[]> {
+  //   return this.restangular.all('workout').getList();
+  // }
+  // getWorkout(id: number | string): Observable<Workout> {
+  //   return  this.restangular.one('workout', id).get();
+  // }
+  // getLastWorkout(): Observable<Workout[]> {
+  //   return this.restangular.all('workout').getList(
+  //     {
+  //       _sort: 'date',
+  //       _order: 'desc',
+  //       _start: 0,
+  //       _end: 1
+  //     });
+  // }
+  // workout?_sort=date&_order=desc&_start=0&_end=1
+  // searchWorkouts(searchPattern: string): Observable<Workout[]> {
+  //   return this.restangular.all('workout').getList({date_like: searchPattern});
+  // }
 
 
   findGymJournalDoc(userid: string): Observable<GymJournal> {
@@ -91,7 +95,7 @@ export class WorkoutService {
   }
 
   findPerformanceCollection(gymJournalDoc: string, workoutDoc: string, exerciseDoc: string): Observable<Performance[]> {
-    console.log('gymJournalDoc: ' + gymJournalDoc + ', workoutDoc: ' + workoutDoc + ', exerciseDoc' + exerciseDoc);
+    console.log('gymJournalDoc: ' + gymJournalDoc + ', workoutDoc: ' + workoutDoc + ', exerciseDoc: ' + exerciseDoc);
     return this.db.collection('GymJournal')
       .doc(gymJournalDoc)
       .collection<Workout>('workouts')
@@ -108,7 +112,6 @@ export class WorkoutService {
         });
       });
   }
-
 
   findWorkoutDoc(gymJournalDoc: string, workoutDoc: string): Observable<Workout> {
     return this.db.collection('GymJournal')
@@ -133,10 +136,6 @@ export class WorkoutService {
   // }
 
 
-  //  !!!! OJO !!!! Restangular DB --- Importante codificación --- No Borrar!
-  // workout?_sort=date&_order=desc&_start=0&_end=1
-  searchWorkouts(searchPattern: string): Observable<Workout[]> {
-    return this.restangular.all('workout').getList({date_like: searchPattern});
-  }
+
 
 }

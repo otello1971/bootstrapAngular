@@ -8,7 +8,9 @@ declare var jQuery: any; // JQuery compatibility for Bootstrap4
     <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" routerLink="./"
+              <a class="nav-link" data-toggle="tab" routerLink="./"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
               id="home-tab"
               data-toggle="tab"
               data-taget="#home"
@@ -18,14 +20,17 @@ declare var jQuery: any; // JQuery compatibility for Bootstrap4
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" routerLink="./crises"
+              routerLinkActive="active"
               id="crisis-tab"
               data-toggle="tab"
               data-taget="#home"
               role="tab"
-              aria-controls="home">Manage Crises</a>
+              aria-controls="home"
+              >Manage Crises</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" routerLink="./heroes"
+              routerLinkActive="active"
               id="heroes-tab"
               data-toggle="tab"
               data-taget="#home"

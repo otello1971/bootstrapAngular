@@ -18,7 +18,6 @@ export class WorkoutComponent implements OnInit {
   gymJournalId: string;
   workouts$: Observable<Workout[]>;
 
-
   constructor(
     private service: WorkoutService,
     private route: ActivatedRoute,

@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observer } from 'rxjs/Observer';
 
 // Firebase
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+
 
 @Injectable()
 
 export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
-  authUser: firebase.User;
+  authUserSubject$: BehaviorSubject<firebase.User>;
 
   constructor(public afAuth: AngularFireAuth) {
-    this.afAuth.authState.subscribe(
-      (user: firebase.User|null) => this.authUser = user,
-      (error: any) => this.redirectUrl = '/login'
-    );
+    this.authUserSubject$ = new BehaviorSubject<firebase.User | null>(null);
+    afAuth.auth.onAuthStateChanged(this.authUserSubject$);
   }
 
   login(): Promise <firebase.auth.UserCredential> {
@@ -29,5 +26,10 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.authUserSubject$
+      .map(user => !!user);
   }
 }

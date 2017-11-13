@@ -24,36 +24,22 @@ import * as firebase from 'firebase/app';
 })
 
 export class LoginComponent {
-   message: string;
    parentURL: string;
 
   constructor(public authService: AuthService,
               public router: Router) {
-
-    this.setMessage();
   }
 
-   setMessage() {
-     this.message = 'Logged ' + (this.authService.authUser ? 'in' : 'out');
-   }
 
   login() {
-    this.message = 'Trying to log in ...';
-    this.setMessage();
     let _this = this;
 
     // Se debe esperar hasta que el login retorne un resultado
     this.authService.login().then ((result) => {
-          // Set our navigation extras object
-          // that passes on our global query params and fragment
-          let navigationExtras: NavigationExtras = {
-            queryParamsHandling: 'preserve',
-            preserveFragment: true
-          };
           // Redirect the user
           let redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : '/login';
           _this.authService.redirectUrl = null;  // limpia la url de llegada
-          _this.router.navigate([redirect], navigationExtras);
+          _this.router.navigate([redirect]);
       }, (error) => {
           _this.router.navigate(['/login']);
       });
@@ -62,7 +48,6 @@ export class LoginComponent {
 
   logout() {
     this.authService.logout();
-    this.setMessage();
   }
 
 }

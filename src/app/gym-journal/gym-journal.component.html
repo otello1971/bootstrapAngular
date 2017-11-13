@@ -1,3 +1,11 @@
-<ng-container  *ngIf="gymJournal$ | async as gymJournal">
+<ng-container  *ngIf="gymJournal$ | async as gymJournal; else loadingJounal;">
     <app-workout [gymJournalId]="gymJournal.id"></app-workout>
 </ng-container>
+
+<ng-template #loadingJounal>
+    <div class="card">
+        <div class="card-body">
+            Loading info...
+        </div>
+      </div>
+</ng-template>
