@@ -3,20 +3,18 @@ import { Router, NavigationExtras,
          ActivatedRoute, RouterState, ActivatedRouteSnapshot } from '@angular/router';
 
 import { AuthService } from './auth.service';
-
-// Firebase
 import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 @Component({
   template: `
-    <h2>LOGIN</h2>
     <div *ngIf="authService.afAuth.authState | async; let user; else showLogin">
       <h1>Hello {{ user.displayName }}!</h1>
       <button (click)="logout()">Logout</button>
     </div>
     <ng-template #showLogin>
+      <h2>LOGIN</h2>
       <p>Please login.</p>
       <button (click)="login()">Login with Google</button>
     </ng-template>

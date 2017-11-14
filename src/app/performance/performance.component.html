@@ -1,7 +1,7 @@
 <!-- Inicio Performances -->
 <div class="d-flex flex-row flex-wrap">
   <div *ngFor="let performance of performances$ | async; let i=index;" class="m-0 p-0">
-    <a [routerLink]="['/performance', performance.seq]" class="list-group-item list-group-item-action">
+    <a [routerLink]="['/performance', performance.id]" class="list-group-item list-group-item-action">
       {{ performance.weight }} lb x {{ performance.reps }}
     </a>
   </div>

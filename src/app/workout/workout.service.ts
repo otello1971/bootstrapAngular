@@ -9,16 +9,27 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import * as firebase from 'firebase/app';
 
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/find';
-import { Subject } from 'rxjs/Subject';
 
 import {Performance, Exercise, Workout, GymJournal } from '../../environments/interfaces';
 
+
 @Injectable()
 export class WorkoutService {
+
+  private _gymJournalDoc$: BehaviorSubject<GymJournal> = new BehaviorSubject<GymJournal | null>(null);
+  gymJournalDoc$: Observable<GymJournal> = this._gymJournalDoc$.asObservable();
+
+  // private _workoutCollection$: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[] | null>(null);
+  // workoutCollection$: Observable<Workout[]> = this._workoutCollection$.asObservable();
+
+  // exerciseCollection$: Observable<Exercise[]>;
+  // performanceCollection$: Observable<Performance[]>;
 
   constructor(private restangular: Restangular,
               private db: AngularFirestore) { }
@@ -59,22 +70,23 @@ export class WorkoutService {
         });
       })
       .first()
-      .map( data => data[0]);
+      .map( data => data[0])
+      .do(x => this._gymJournalDoc$.next(x));
   }
 
   findWorkoutCollection(gymJournalDoc: string): Observable<Workout[]> {
-    console.log('gymJournalDoc: ' + gymJournalDoc);
-    return this.db.collection('GymJournal')
-      .doc(gymJournalDoc)
-      .collection<Workout>('workouts')
-      .snapshotChanges()
-      .map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Workout;
-          const id = a.payload.doc.id;
-          return { id, ...data };
+      console.log('gymJournalDoc: ' + gymJournalDoc);
+      return this.db.collection('GymJournal')
+        .doc(gymJournalDoc)
+        .collection<Workout>('workouts')
+        .snapshotChanges()
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Workout;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
         });
-      });
   }
 
   findExerciseCollection(gymJournalDoc: string, workoutDoc: string): Observable<Exercise[]> {

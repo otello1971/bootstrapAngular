@@ -1,5 +1,5 @@
 <ng-container  *ngIf="gymJournal$ | async as gymJournal; else loadingJounal;">
-    <app-workout [gymJournalId]="gymJournal.id"></app-workout>
+    <app-workout></app-workout>
 </ng-container>
 
 <ng-template #loadingJounal>

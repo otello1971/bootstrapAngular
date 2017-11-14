@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): Observable<boolean> {
-    return this.authService.authUserSubject$
+    return this.authService.authUser$
     .take(1)
     .map((authState) => !!authState)
     .do(authenticated => {

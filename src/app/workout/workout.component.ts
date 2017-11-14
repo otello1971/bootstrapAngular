@@ -1,9 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { AppComponent } from '../app.component';
 import { WorkoutService } from './workout.service';
 import { Workout } from '../../environments/interfaces';
 import { ExerciseComponent } from '../exercise/exercise.component';
@@ -14,19 +13,15 @@ import { ExerciseComponent } from '../exercise/exercise.component';
 })
 export class WorkoutComponent implements OnInit {
 
-  @Input()
-  gymJournalId: string;
+  gymJournalDocId$: Observable<string>;
   workouts$: Observable<Workout[]>;
 
   constructor(
-    private service: WorkoutService,
-    private route: ActivatedRoute,
-    private appcomp: AppComponent
+    private service: WorkoutService
   ) {}
 
   ngOnInit() {
-
-    this.workouts$ =  this.service.findWorkoutCollection(this.gymJournalId);
-
+    this.gymJournalDocId$ = this.service.gymJournalDoc$.map(x => x.id);
+    this.workouts$ = this.gymJournalDocId$.switchMap( id => this.service.findWorkoutCollection(id));
   }
 }

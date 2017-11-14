@@ -13,11 +13,11 @@ import * as firebase from 'firebase/app';
 export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
-  authUserSubject$: BehaviorSubject<firebase.User>;
+  private _authUser$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User | null>(null);
+  authUser$: Observable<firebase.User> = this._authUser$.asObservable();
 
   constructor(public afAuth: AngularFireAuth) {
-    this.authUserSubject$ = new BehaviorSubject<firebase.User | null>(null);
-    afAuth.auth.onAuthStateChanged(this.authUserSubject$);
+    afAuth.auth.onAuthStateChanged(this._authUser$);
   }
 
   login(): Promise <firebase.auth.UserCredential> {
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.authUserSubject$
+    return this.authUser$
       .map(user => !!user);
   }
 }

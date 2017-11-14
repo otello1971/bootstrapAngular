@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, Event } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 // import { Observable } from 'rxjs/Observable';
 // import { Subject } from 'rxjs/Subject';
@@ -16,8 +17,8 @@ declare var jQuery: any; // JQuery compatibility for Bootstrap4
 export class AppComponent implements OnInit {
   searchString = new FormControl(''); // search string is empty
 
-  constructor(
-    private router: Router
+  constructor(private router: Router,
+              private authService: AuthService
   ) {}
 
   ngOnInit() {

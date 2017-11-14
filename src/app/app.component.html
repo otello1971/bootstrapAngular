@@ -25,9 +25,12 @@
                   <li class="nav-item col-xs-8 col-sm-auto">
                     <a [routerLink]="[{ outlets: { popup: ['compose'] } }]" class="nav-link">Contact</a>
                   </li> 
-                  <li class="nav-item ml-auto col-xs-8">
+                  <li *ngIf="!(authService.isLoggedIn() | async)" class="nav-item ml-auto col-xs-8">
                     <a routerLink="/login" routerLinkActive="active" class="nav-link">login</a>
-                </li>
+                  </li>
+                  <li  *ngIf="authService.isLoggedIn() | async"  class="nav-item ml-auto col-xs-8">
+                    <a routerLink="/login" routerLinkActive="active" class="nav-link">logout</a>
+                  </li>                 
               </ul>
             </div>
         </nav>

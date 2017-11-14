@@ -6,8 +6,8 @@ import { GymJournalComponent } from '../gym-journal/gym-journal.component';
 
 const workoutRoutes: Routes = [
   { path: 'workout',
-    component: GymJournalComponent
-    // , canLoad: [AuthGuard]
+    component: GymJournalComponent,
+    canActivate: [AuthGuard]
    },
 ];
 

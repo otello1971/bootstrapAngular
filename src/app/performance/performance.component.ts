@@ -9,10 +9,9 @@ import { WorkoutService } from '../workout/workout.service';
   styles: []
 })
 export class PerformanceComponent implements OnInit {
+  gymJournalDocId$: Observable<string>;
   @Input()
   workoutId: string;
-  @Input()
-  gymJournalId: string;
   @Input()
   exerciseId: string;
 
@@ -21,7 +20,9 @@ export class PerformanceComponent implements OnInit {
   constructor(private service: WorkoutService) { }
 
   ngOnInit() {
-    this.performances$ = this.service.findPerformanceCollection(this.gymJournalId, this.workoutId, this.exerciseId);
+    this.gymJournalDocId$ = this.service.gymJournalDoc$.map(x => x.id);
+    this.performances$  = this.gymJournalDocId$.switchMap( gymJournalId =>
+        this.service.findPerformanceCollection(gymJournalId, this.workoutId, this.exerciseId));
   }
 
 }

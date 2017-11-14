@@ -9,18 +9,19 @@ import { WorkoutService } from '../workout/workout.service';
   styles: []
 })
 export class ExerciseComponent implements OnInit {
+  gymJournalDocId$: Observable<string>;
 
   @Input()
   workoutId: string;
-  @Input()
-  gymJournalId: string;
 
   exercises$: Observable<Exercise[]>;
 
   constructor(private service: WorkoutService) { }
 
   ngOnInit() {
-    this.exercises$ = this.service.findExerciseCollection(this.gymJournalId, this.workoutId);
+    this.gymJournalDocId$ = this.service.gymJournalDoc$.map(x => x.id);
+    this.exercises$ = this.gymJournalDocId$.switchMap( gymJournalId =>
+                         this.service.findExerciseCollection(gymJournalId, this.workoutId));
 
   }
 
