@@ -1,4 +1,4 @@
-export interface PerformanceLessId { seq: number;  reps: number; weight: number; times: number; }
+export interface PerformanceLessId { seq: number;  reps: number; weight: number; times: number; unit: string; }
 export interface Performance extends PerformanceLessId { id: string; }
 export interface ExerciseLessId { seq: number;  title: string; performances: Performance[]; }
 export interface Exercise extends ExerciseLessId { id: string; }

@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Router } from '@angular/router';
-
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 
-// ***************     Workout   **********************
+// **************   Local Modules  ********************
 import { WorkoutModule } from './workout/workout.module';
+import { HeroesModule } from './heroes/heroes.module';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginRoutingModule } from './login-routing.module';
 // ****************************************************
 
-import { HeroesModule } from './heroes/heroes.module';
 import { ComposeMessageComponent } from './compose-message.component';
-import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { PageNotFoundComponent } from './errors/not-found.component';
 import { DialogService } from './dialog.service';
@@ -31,8 +29,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
-
-
 
 @NgModule({
   imports: [
@@ -52,7 +48,7 @@ import { environment } from '../environments/environment';
     AppComponent,
     ComposeMessageComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
     ],
   providers: [
     DialogService,

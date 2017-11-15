@@ -6,16 +6,14 @@
   </div>
   <div class="row px-0 px-sm-2">
     <div class="col col-12">
-      <div class="list-group col-12 col-sm-6">
+      <ul class="list-group col-12 col-sm-6">
         <!-- Workouts -->
-        <a *ngFor="let workout of workouts$ | async"
-          [routerLink]="['/workout', workout.seq]" 
-          class="list-group-item list-group-item-action">
-          {{ workout.date | date }}
+        <li *ngFor="let workout of workouts$ | async" class="list-group-item">
+          <a [routerLink]="['/workout', workout.id]" >{{ workout.date | date }}</a>
             <app-exercise [workoutId]="workout.id"></app-exercise>
-        </a>
+        </li>
         <!-- Fin Workouts -->  
-      </div>
+    </ul>
     </div>
   </div>
   

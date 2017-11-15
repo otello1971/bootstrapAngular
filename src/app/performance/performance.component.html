@@ -1,9 +1,10 @@
 <!-- Inicio Performances -->
 <div class="d-flex flex-row flex-wrap">
   <div *ngFor="let performance of performances$ | async; let i=index;" class="m-0 p-0">
-    <a [routerLink]="['/performance', performance.id]" class="list-group-item list-group-item-action">
+    <button  class="button list-group-item list-group-item-action" (click)="openDialog()">
+      <span class="badge badge-default badge-light mr-2">{{ performance.seq }}</span>
       {{ performance.weight }} lb x {{ performance.reps }}
-    </a>
+    </button>
   </div>
   <div>
     <a [routerLink]="['/addperformance', exerciseId]" class="list-group-item list-group-item-action">+

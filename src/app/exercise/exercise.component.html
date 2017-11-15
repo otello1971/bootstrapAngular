@@ -1,6 +1,9 @@
 <!-- Excercises -->
-<a *ngFor="let exercise of exercises$ | async" [routerLink]="['/exercise', exercise.seq]" class="list-group-item list-group-item-action">
-  <span class="badge badge-default badge-light mr-2">{{ exercise.seq }}</span>{{ exercise.title }}
-  <app-performance [workoutId]="workoutId" [exerciseId]="exercise.id"></app-performance>
-</a>
+<ul *ngFor="let exercise of exercises$ | async" class="list-group">
+  <li class="list-group-item">
+    <span class="badge badge-default badge-light mr-2">{{ exercise.seq }}</span>
+    <a [routerLink]="['/exercise', exercise.id]">{{ exercise.title }}</a>  
+    <app-performance [workoutId]="workoutId" [exerciseId]="exercise.id"></app-performance>
+  </li>
+</ul>
 <!-- Fin Excercises -->
