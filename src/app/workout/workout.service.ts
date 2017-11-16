@@ -115,7 +115,8 @@ export class WorkoutService {
       .doc(workoutDoc)
       .collection<Exercise>('exercises')
       .doc(exerciseDoc)
-      .collection<Performance>('performances')
+      .collection<Performance>('performances', ref => ref
+        .orderBy('date'))
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -137,14 +138,23 @@ export class WorkoutService {
   }
 
   setPerformanceDoc(gJoId: string, wkoId: string, exeId: string, perfId: string, data: Performance) {
-    this.db
+  let afc =  this.db
       .collection('GymJournal').doc(gJoId)
       .collection('workouts').doc(wkoId)
       .collection('exercises').doc(exeId)
-      .collection<Performance>('performances').doc(perfId)
+      .collection('performances');
+
+  data.date = new Date();
+  perfId ? afc
+      .doc(perfId)
       .set(data)
         .then(() => console.log('Actualización correcta de performance'))
         .catch(() => console.log('error actualizando datos! :(')
+      ) :
+      afc
+      .add(data)
+        .then(() => console.log('Creación correcta de performance'))
+        .catch(() => console.log('error creando datos! :(')
       );
   }
 

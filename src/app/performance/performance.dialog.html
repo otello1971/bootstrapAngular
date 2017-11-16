@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Hi!</h1>
+<form [formGroup]="performanceForm" novalidate>
+<div mat-dialog-content>
+  <p>Weight</p>
+  <mat-form-field>
+    <input matInput id="weight" formControlName="weight" tabindex="1" [(ngModel)]="data.weight" required>
+    <mat-error *ngIf="weight.invalid && (weight.dirty || weight.touched)">
+      <ng-container *ngIf="weight.errors.required">Weight is required.</ng-container>
+      <ng-container *ngIf="weight.errors.min">Weight must be at least 0.</ng-container>
+      <ng-container *ngIf="weight.errors.max">Weight must be less than 1000.</ng-container>
+      <ng-container *ngIf="weight.errors.pattern">Weight must be numeric.</ng-container>
+    </mat-error>
+  </mat-form-field>
+  <p>Reps</p>
+  <mat-form-field>
+    <input matInput id="reps" formControlName="reps" tabindex="2" [(ngModel)]="data.reps">
+    <mat-error *ngIf="reps.invalid && (reps.dirty || reps.touched)">
+      <ng-container *ngIf="reps.errors.required">Reps is required.</ng-container>
+      <ng-container *ngIf="reps.errors.min">Reps must be at least 0.</ng-container>
+      <ng-container *ngIf="reps.errors.max">Reps must be less than 100.</ng-container>
+      <ng-container *ngIf="reps.errors.pattern">Reps must be an interger number.</ng-container>
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button type="submit" [disabled]="performanceForm.invalid"  [mat-dialog-close]="data" tabindex="2">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>
+</form>
+
+
+<!-- Copyright 2017 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

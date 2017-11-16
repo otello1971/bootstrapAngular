@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // **************  Angular Material   *****************
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +23,7 @@ import { GymJournalComponent } from '../gym-journal/gym-journal.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     WorkoutRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
