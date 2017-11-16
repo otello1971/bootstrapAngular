@@ -10,7 +10,7 @@
         <!-- Workouts -->
         <li *ngFor="let workout of workouts$ | async" class="list-group-item">
           <a [routerLink]="['/workout', workout.id]" >{{ workout.date | date }}</a>
-            <app-exercise [workoutId]="workout.id"></app-exercise>
+            <app-exercise [gymJournalId]="gymJournalId" [workoutId]="workout.id"></app-exercise>
         </li>
         <!-- Fin Workouts -->  
     </ul>

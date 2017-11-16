@@ -1,7 +1,7 @@
 <!-- Inicio Performances -->
 <div class="d-flex flex-row flex-wrap">
   <div *ngFor="let performance of performances$ | async; let i=index;" class="m-0 p-0">
-    <button  class="button list-group-item list-group-item-action" (click)="openDialog()">
+    <button  class="button list-group-item list-group-item-action" (click)="openDialog(performance)">
       <span class="badge badge-default badge-light mr-2">{{ performance.seq }}</span>
       {{ performance.weight }} lb x {{ performance.reps }}
     </button>

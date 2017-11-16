@@ -22,8 +22,8 @@ import {Performance, Exercise, Workout, GymJournal } from '../../environments/in
 @Injectable()
 export class WorkoutService {
 
-  private _gymJournalDoc$: BehaviorSubject<GymJournal> = new BehaviorSubject<GymJournal | null>(null);
-  gymJournalDoc$: Observable<GymJournal> = this._gymJournalDoc$.asObservable();
+  // private _gymJournalDoc$: BehaviorSubject<GymJournal> = new BehaviorSubject<GymJournal | null>(null);
+  // gymJournalDoc$: Observable<GymJournal> = this._gymJournalDoc$.asObservable();
 
   // private _workoutCollection$: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[] | null>(null);
   // workoutCollection$: Observable<Workout[]> = this._workoutCollection$.asObservable();
@@ -71,7 +71,8 @@ export class WorkoutService {
       })
       .first()
       .map( data => data[0])
-      .do(x => this._gymJournalDoc$.next(x));
+      // .do(x => this._gymJournalDoc$.next(x))
+      ;
   }
 
   findWorkoutCollection(gymJournalDoc: string): Observable<Workout[]> {
@@ -133,6 +134,18 @@ export class WorkoutService {
       .valueChanges()
       .first()
       .map( data => data[0]);
+  }
+
+  setPerformanceDoc(gJoId: string, wkoId: string, exeId: string, perfId: string, data: Performance) {
+    this.db
+      .collection('GymJournal').doc(gJoId)
+      .collection('workouts').doc(wkoId)
+      .collection('exercises').doc(exeId)
+      .collection<Performance>('performances').doc(perfId)
+      .set(data)
+        .then(() => console.log('Actualización correcta de performance'))
+        .catch(() => console.log('error actualizando datos! :(')
+      );
   }
 
   //   exercises$.subscribe(x => console.log('Exercises:' + JSON.stringify(x)));

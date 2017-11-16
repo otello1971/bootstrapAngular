@@ -11,35 +11,37 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styles: []
 })
 export class PerformanceComponent implements OnInit {
-  gymJournalDocId$: Observable<string>;
+  @Input()
+  gymJournalId: string;
   @Input()
   workoutId: string;
   @Input()
   exerciseId: string;
-
   performances$: Observable<Performance[]>;
-
-  animal: string;
-  name: string;
 
   constructor(private service: WorkoutService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.gymJournalDocId$ = this.service.gymJournalDoc$.map(x => x.id);
-    this.performances$  = this.gymJournalDocId$.switchMap( gymJournalId =>
-        this.service.findPerformanceCollection(gymJournalId, this.workoutId, this.exerciseId));
+    this.performances$ =
+      this.service.findPerformanceCollection(this.gymJournalId, this.workoutId, this.exerciseId);
   }
 
-  openDialog(): void {
+  openDialog(perf: Performance): void {
     let dialogRef = this.dialog.open(DialogPerformanceDialog, {
       width: '250px',
-      data: { name: this.name, animal: this.animal }
+      data: JSON.parse(JSON.stringify(perf)) // deep copy
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+    dialogRef.afterClosed().subscribe((result: Performance) => {
+      if (result) {
+        this.service.setPerformanceDoc(
+          this.gymJournalId,
+          this.workoutId,
+          this.exerciseId,
+          result.id,
+          result);
+      }
     });
   }
 }
@@ -54,9 +56,8 @@ export class DialogPerformanceDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogPerformanceDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: Performance
   ) { }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
