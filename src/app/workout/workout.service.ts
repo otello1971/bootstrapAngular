@@ -138,24 +138,23 @@ export class WorkoutService {
   }
 
   setPerformanceDoc(gJoId: string, wkoId: string, exeId: string, perfId: string, data: Performance) {
-  let afc =  this.db
-      .collection('GymJournal').doc(gJoId)
-      .collection('workouts').doc(wkoId)
-      .collection('exercises').doc(exeId)
-      .collection('performances');
+    let afc =  this.db
+        .collection('GymJournal').doc(gJoId)
+        .collection('workouts').doc(wkoId)
+        .collection('exercises').doc(exeId)
+        .collection('performances');
 
-  data.date = new Date();
-  perfId ? afc
-      .doc(perfId)
-      .set(data)
-        .then(() => console.log('Actualización correcta de performance'))
-        .catch(() => console.log('error actualizando datos! :(')
-      ) :
-      afc
-      .add(data)
-        .then(() => console.log('Creación correcta de performance'))
-        .catch(() => console.log('error creando datos! :(')
-      );
+    if (perfId) {
+      afc.doc(perfId)
+          .set(data)
+            .then(() => console.log('Actualización correcta de performance'))
+            .catch(() => console.log('error actualizando datos! :('));
+    } else {
+      data.date = new Date().toISOString();
+      afc.add(data)
+          .then(() => console.log('Creación correcta de performance'))
+          .catch(() => console.log('error creando datos! :('));
+    }
   }
 
   //   exercises$.subscribe(x => console.log('Exercises:' + JSON.stringify(x)));

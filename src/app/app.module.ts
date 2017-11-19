@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import 'hammerjs';  // necesario por mat-slider
+
 import { FormsModule } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -33,6 +36,7 @@ import { environment } from '../environments/environment';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     AngularFirestoreModule,

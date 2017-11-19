@@ -22,11 +22,11 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        // Esperar mientras se carga...
-        this.router.events.subscribe((e: Event) => {
-          if (e instanceof NavigationStart) {
-            $('#navbarSupportedContent').collapse('hide');
-          }});
+  // Esperar mientras se carga ...
+  this.router.events.subscribe((e: Event) => {
+    if (e instanceof NavigationStart) {
+      $('#navbarSupportedContent').collapse('hide');
+    }});
   }
 
   // Observable string streams

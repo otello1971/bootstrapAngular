@@ -4,7 +4,7 @@ import { Performance } from '../../environments/interfaces';
 import { WorkoutService } from '../workout/workout.service';
 import { FormGroup, FormControl, Validators, FormBuilder, ControlContainer } from '@angular/forms';
 // Material
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSliderChange } from '@angular/material';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class PerformanceComponent implements OnInit {
   }
 
   openDialog(perf: Performance): void {
-    let dialogRef = this.dialog.open(DialogPerformanceDialog, {
+    let dialogRef = this.dialog.open(PerformanceDialog, {
       width: '250px',
-      data: !!perf ? JSON.parse(JSON.stringify(perf)) : {'weight': '0', 'reps': '0'} // deep copy
+      data: !!perf ? JSON.parse(JSON.stringify(perf)) : {'weight': '0', 'reps': '1'} // deep copy
     });
 
     dialogRef.afterClosed().subscribe((result: Performance) => {
@@ -51,14 +51,19 @@ export class PerformanceComponent implements OnInit {
 @Component({
   // tslint:disable-next-line:component-selector
   templateUrl: 'performance.dialog.html',
+  styleUrls: ['performance.dialog.css'],
 })
 // tslint:disable-next-line:component-class-suffix
-export class DialogPerformanceDialog {
+export class PerformanceDialog {
   performanceForm: FormGroup;
+  reps_min = 1;
+  reps_max = 100;
+  min = 0;
+  max = 100;
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<DialogPerformanceDialog>,
+    public dialogRef: MatDialogRef<PerformanceDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Performance
 
   ) {
@@ -71,18 +76,8 @@ export class DialogPerformanceDialog {
 
   createForm() {
     this.performanceForm = this.fb.group({
-      'weight': new FormControl(this.data.weight, [
-        Validators.required,
-        Validators.min(0),
-        Validators.max(999),
-        Validators.pattern('[0-9]+(\.[0-9])?')
-      ]),
-      'reps': new FormControl(this.data.reps, [
-        Validators.required,
-        Validators.min(0),
-        Validators.max(99),
-        Validators.pattern('[0-9]+')
-      ]),
+      'weight': new FormControl(this.data.weight),
+      'reps': new FormControl(this.data.reps),
       'times': new FormControl(this.data.times, [
         Validators.min(0),
         Validators.max(99),
@@ -90,6 +85,21 @@ export class DialogPerformanceDialog {
       ])
     });
   }
+
+ onChange(e: MatSliderChange) {
+  if (e.value === this.min && e.value > this.reps_min) {
+    this.min--;
+  } else {
+  this.min = Math.floor(this.data.reps / 2) > this.reps_min ?
+                          Math.floor(this.data.reps / 2) : this.reps_min;
+  }
+  if (e.value === this.max && e.value < this.reps_max) {
+    this.max++;
+  } else {
+  this.max = Math.floor(this.data.reps * 1.5) <= this.reps_max ?
+                          Math.floor(this.data.reps * 1.5) : this.reps_max;
+  }
+ }
 
   get weight() { return this.performanceForm.get('weight'); }
   get reps() { return this.performanceForm.get('reps'); }

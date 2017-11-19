@@ -29,11 +29,14 @@ export class HeroListComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => this.selectedId = +params.get('id'));
 
     // Suscribirse a cambios en el filtro de heroes desde el 'search' de app.component
-    this.appcomp.searchString.valueChanges
-      .subscribe(p => this.heroes$ = this.service.searchHeroes(p),
-                 errorResponse => {
-                    console.log('hero-list.component.td: Error!');
-      });
+    // this.appcomp.searchString.valueChanges
+    //   .subscribe(p => this.heroes$ = this.service.searchHeroes(p),
+    //              errorResponse => {
+    //                 console.log('hero-list.component.td: Error!');
+    //   });
+
+    this.heroes$ = this.appcomp.searchString.valueChanges
+                   .switchMap(x => this.service.searchHeroes(x));
 
 
   }

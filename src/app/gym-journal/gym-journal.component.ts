@@ -21,6 +21,7 @@ export class GymJournalComponent implements OnInit {
     this.gymJournal$ = this.authService.authUser$
         .filter(user => user != null)
         .switchMap(user => this.service.findGymJournalDoc(user.uid));
+        
     // if (this.authService.authUser) {
     //   this.gymJournal$ = this.service.findGymJournalDoc(this.authService.authUser.uid);
     // }
